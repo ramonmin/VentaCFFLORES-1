@@ -92,7 +92,7 @@ namespace UnitTestProject1
         public void TestObtenerProductoFault()
         {
             ProductoWSC.ProductoClient proxy = new ProductoWSC.ProductoClient();
-            string codigobarra = "121212121200";
+            string codigobarra = "121212121212";
             string nombre = "";
             string tipo = "";
             try
