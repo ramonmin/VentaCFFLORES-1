@@ -1,0 +1,34 @@
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
+using System.IO;
+using System.Text;
+using System.Web.Script.Serialization;
+using System.Collections.Generic;
+
+
+namespace CFFLORES.TestRest
+{
+[TestClass]
+    public class TesRest
+    {
+        [TestMethod]
+        public void CRUDTest()
+        {
+
+
+
+//Prueba Via Http GET
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://localhost:24832/Venta.svc/Venta/11111111");
+                req.Method = "GET";
+                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                StreamReader reader = new StreamReader(res.GetResponseStream());
+                string ventaJson = reader.ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                Venta ventaObtenido = js.Deserialize<Venta>(ventaJson);
+                Assert.AreEqual("11111111", ventaObtenido.Dni);
+                Assert.AreEqual("Manuel Llerena", ventaObtenido.Cliente);
+                
+                }
+                }
+                }
