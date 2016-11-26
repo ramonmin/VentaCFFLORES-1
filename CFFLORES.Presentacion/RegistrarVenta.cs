@@ -121,11 +121,65 @@ namespace CFFLORES.Presentacion
 
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
-                MessageBox.Show("Se realizó la Anulación",
-                "EXITO",
+
+                for (int i = 0; i <= dgvVenta.RowCount - 1; i++)
+                {
+                    if (Convert.ToBoolean(dgvVenta.Rows[i].Cells["Column1"].Value) == true)
+                    {
+                        string id = dgvVenta.Rows[i].Cells["IdVenta"].Value.ToString();
+                        Modificar(id,"0");
+
+                    }
+                }
+            }
+        }
+
+        private void Modificar(string idcliente, string estado)
+        {
+            string id = idcliente;
+            string st = estado;
+            string postdata = "{\"IdVenta\":\"" + id + "\",\"Estado\":\"" + st + "\"}";
+            byte[] data = Encoding.UTF8.GetBytes(postdata);
+            string URLAuth = "http://localhost:24832/Venta.svc/Venta";
+
+            try
+            {
+                
+
+
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(URLAuth);
+                req.Method = "PUT";
+                req.ContentLength = data.Length;
+                req.ContentType = "application/json";
+                var reqStream = req.GetRequestStream();
+                reqStream.Write(data, 0, data.Length);
+                var res = (HttpWebResponse)req.GetResponse();
+                StreamReader reader = new StreamReader(res.GetResponseStream());
+                string clienteJson = reader.ReadToEnd();
+                JavaScriptSerializer JsonConvert = new JavaScriptSerializer();
+                List<Venta> registros = new List<Venta>();
+                registros = JsonConvert.Deserialize<List<Venta>>(clienteJson);
+                dgvVenta.AutoGenerateColumns = false;
+                dgvVenta.DataSource = registros;
+
+
+            }
+            catch (WebException ex)
+            {
+                HttpStatusCode code = ((HttpWebResponse)ex.Response).StatusCode;
+                string message = ((HttpWebResponse)ex.Response).StatusDescription;
+                StreamReader reader = new StreamReader(ex.Response.GetResponseStream());
+                string error = reader.ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string mensaje = js.Deserialize<string>(error);
+
+                MessageBox.Show(mensaje,
+                "Advertencia",
                 MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
+                MessageBoxIcon.Warning,
                 MessageBoxDefaultButton.Button1);
+
             }
         }
 
@@ -184,20 +238,23 @@ namespace CFFLORES.Presentacion
             else
                 this.tabControl1.TabPages.Add(this.tabPage2);
 
-            Listar("1");
+            rbDni.Checked = true;
+            rbVenta.Checked = false;
+            Listar("1","1");
 
         }
 
    
-        public void Listar( string valor)
+        public void Listar( string busqueda, string valor)
         {
             try
             {
                 dgvVenta.AutoGenerateColumns = false;
                 //dgvVenta.DataSource = daoproducto.ListarProducto();
+                string URLAuth = "http://localhost:24832/Venta.svc/Venta/" + busqueda.ToString() + "/" + valor.ToString();
 
                 HttpWebRequest req = (HttpWebRequest)WebRequest.
-                    Create("http://localhost:24832/Venta.svc/Venta/" + valor);
+                    Create(URLAuth);
                 req.Method = "GET";
 
                 req.ContentType = "application/json";
@@ -249,7 +306,16 @@ namespace CFFLORES.Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Listar(txtBusCliente.Text);
+            if (txtBusCliente.Text.Trim().Length == 0)
+            {
+                Listar("1", "1");
+                return;
+            }
+            if (rbDni.Checked)
+                Listar("2",txtBusCliente.Text);
+
+            if (rbVenta.Checked)
+                Listar("3", txtBusCliente.Text);
         }
     }
 }

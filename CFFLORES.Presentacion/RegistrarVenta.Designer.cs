@@ -86,6 +86,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.rbDni = new System.Windows.Forms.RadioButton();
+            this.rbVenta = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -265,6 +267,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbVenta);
+            this.groupBox1.Controls.Add(this.rbDni);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
@@ -314,7 +318,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(312, 27);
+            this.button1.Location = new System.Drawing.Point(310, 42);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(40, 28);
@@ -325,7 +329,7 @@
             // 
             // txtBusCliente
             // 
-            this.txtBusCliente.Location = new System.Drawing.Point(87, 30);
+            this.txtBusCliente.Location = new System.Drawing.Point(86, 48);
             this.txtBusCliente.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusCliente.Name = "txtBusCliente";
             this.txtBusCliente.Size = new System.Drawing.Size(216, 22);
@@ -335,7 +339,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 33);
+            this.label1.Location = new System.Drawing.Point(23, 48);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 17);
@@ -687,6 +691,26 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Cliente:";
             // 
+            // rbDni
+            // 
+            this.rbDni.AutoSize = true;
+            this.rbDni.Location = new System.Drawing.Point(86, 23);
+            this.rbDni.Name = "rbDni";
+            this.rbDni.Size = new System.Drawing.Size(50, 21);
+            this.rbDni.TabIndex = 6;
+            this.rbDni.Text = "Dni";
+            this.rbDni.UseVisualStyleBackColor = true;
+            // 
+            // rbVenta
+            // 
+            this.rbVenta.AutoSize = true;
+            this.rbVenta.Location = new System.Drawing.Point(142, 22);
+            this.rbVenta.Name = "rbVenta";
+            this.rbVenta.Size = new System.Drawing.Size(86, 21);
+            this.rbVenta.TabIndex = 7;
+            this.rbVenta.Text = "N° Venta";
+            this.rbVenta.UseVisualStyleBackColor = true;
+            // 
             // RegistrarVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -774,6 +798,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Monto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
+        private System.Windows.Forms.RadioButton rbVenta;
+        private System.Windows.Forms.RadioButton rbDni;
     }
 }
 

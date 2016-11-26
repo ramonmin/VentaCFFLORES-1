@@ -15,20 +15,14 @@ namespace CFFLORES.WebService
     public interface IVenta
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Venta/{Valor}/", ResponseFormat = WebMessageFormat.Json)]
-        List<EVenta> VentaListar(string Valor);
-        /*
+        [WebInvoke(Method = "GET", UriTemplate = "Venta/{busqueda}/{Valor}", ResponseFormat = WebMessageFormat.Json)]
+        List<EVenta> Listar(string busqueda, string Valor);
+        
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "Cliente/{Venta}/", ResponseFormat = WebMessageFormat.Json)]
-        int VentaAnular(int id);*/
-
-        /* [OperationContract]
-         [WebInvoke(Method = "PUT", UriTemplate = "Cliente", ResponseFormat = WebMessageFormat.Json)]
-         ECliente ModificarCliente(ECliente clientes);
-
-         [OperationContract]
-         [WebInvoke(Method = "DELETE", UriTemplate = "Cliente/{dni}", ResponseFormat = WebMessageFormat.Json)]
-         void EliminarCliente(string dni);*/
+        [WebInvoke(Method = "PUT", UriTemplate = "Venta", ResponseFormat = WebMessageFormat.Json)]
+        List<EVenta> Modificar(EVenta beventa);
+        
+       
 
     }
 }

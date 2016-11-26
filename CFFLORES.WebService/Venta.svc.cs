@@ -16,21 +16,34 @@ namespace CFFLORES.WebService
     public class Venta : IVenta
     {
         private DAOVenta dao = new DAOVenta();
-        public List<EVenta> VentaListar(string Valor)
+        public List<EVenta> Listar(string busqueda, string Valor)
         {
-            if (String.IsNullOrEmpty(Valor)) Valor = "";
+            /*
+             busqueda:
+             1: Listar
+             2: Por Dni
+             3: Por Serie
+             4: Por Id
+             */
+            if (String.IsNullOrEmpty(busqueda)) busqueda = "1";
+            if (String.IsNullOrEmpty(Valor)) Valor = "1";
 
-            if (Valor.Length != 8 && Valor.Length != 3 && !Valor.Equals("1"))
+            if (busqueda.Equals("2") &&  Valor.Length != 8)//Busqueda por DNI
             {
-                throw new WebFaultException<string>("La Busqueda es por DNI (8 Caracteres) o Serie (3 Caracteres)", HttpStatusCode.InternalServerError);
+                throw new WebFaultException<string>("La Busqueda por DNI debe contener 8 Caracteres", HttpStatusCode.InternalServerError);
+            }
+
+            if (busqueda.Equals("3") && Valor.Length != 3)//Busqueda por Serie
+            {
+                throw new WebFaultException<string>("La Busqueda por Serie debe contener 3 Caracteres", HttpStatusCode.InternalServerError);
             }
 
             List<EVenta> obobVenta = new List<EVenta>();
-            obobVenta = dao.Listar(Valor);
+            obobVenta = dao.Listar(busqueda, Valor);
 
             if (obobVenta.Capacity == 0)
             {
-                throw new WebFaultException<string>("No Existen Ventas", HttpStatusCode.InternalServerError);
+                throw new WebFaultException<string>("No Existe Venta", HttpStatusCode.InternalServerError);
 
             }
 
@@ -40,12 +53,51 @@ namespace CFFLORES.WebService
 
 
         }
-        /*
-        public int VentaAnular(int id)
+        
+        public List<EVenta> Modificar(EVenta beventa)
         {
-            return dao.AnularVenta(id);
+
+            /*
+             Estados:
+             0: Venta
+             1: Contabilizado
+             2: Anulado
+             */
+             if (beventa == null)
+            {
+                beventa = new EVenta { IdVenta = 0,Estado=0 };
+            }
+
+            List<EVenta> obobVenta = new List<EVenta>();
+
+            obobVenta = dao.Listar("4", beventa.IdVenta.ToString());
+
+            if (obobVenta.Capacity == 0)
+            {
+                throw new WebFaultException<string>("No Existe Venta", HttpStatusCode.InternalServerError);
+
+            }
+
+            string estado = obobVenta[0].Estado.ToString();
+            if (estado.Equals("1"))
+            {
+                throw new WebFaultException<string>("No se puede Anular la Venta, ya se encuentra contabilizado", HttpStatusCode.InternalServerError);
+
+            }
+            if (estado.Equals("2"))
+            {
+                throw new WebFaultException<string>("La venta ya se encuentra Anulada", HttpStatusCode.InternalServerError);
+
+            }
+
+            List<EVenta> obobVentaresult = new List<EVenta>();
+            obobVentaresult = dao.Modificar(beventa);
+
+
+
+            return obobVentaresult;
         }
-        */
+        
     
     }
 }
