@@ -77,8 +77,32 @@ namespace CFFLORES.TestRest
             StreamReader reader = new StreamReader(res.GetResponseStream());
             string clienteJson = reader.ReadToEnd();
             JavaScriptSerializer JsonConvert = new JavaScriptSerializer();
-            List<Venta> registros = new List<Venta>();
-            registros = JsonConvert.Deserialize<List<Venta>>(clienteJson);
-        }
+           List<Venta> registros = new List<Venta>();
+                registros = JsonConvert.Deserialize<List<Venta>>(clienteJson);
+
+                foreach (var value in registros)
+                {
+                    Assert.AreEqual(idcliente, value.IdVenta.ToString());
+                }
+
+            }
+            catch (WebException ex)
+            {
+                HttpStatusCode code = ((HttpWebResponse)ex.Response).StatusCode;
+                string message = ((HttpWebResponse)ex.Response).StatusDescription;
+                StreamReader reader = new StreamReader(ex.Response.GetResponseStream());
+                string error = reader.ReadToEnd();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string mensaje = js.Deserialize<string>(error);
+                if (estado.Equals("1"))
+                    Assert.AreEqual("No se puede Anular la Venta, ya se encuentra contabilizado", mensaje);
+                else if (estado.Equals("2"))
+                    Assert.AreEqual("La venta ya se encuentra Anulada", mensaje);
+                else if (estado.Equals("3"))
+                    Assert.AreEqual("No Existe Venta", mensaje);
+
+            }
+
+}
     }
 }
