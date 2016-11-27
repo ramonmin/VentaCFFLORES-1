@@ -42,25 +42,25 @@ namespace CFFLORES.Presentacion
              MessageBoxIcon.Error,
              MessageBoxDefaultButton.Button1);
             MessageBox.Show("El producto <Nombre producto> esta por agotarse.",
-             "Adventencia",
+             "Advertencia",
              MessageBoxButtons.OK,
              MessageBoxIcon.Exclamation,
              MessageBoxDefaultButton.Button1);
 
             MessageBox.Show("El producto <Nombre producto> no cuenta con stock disponible.",
-             "Adventencia",
+             "Advertencia",
              MessageBoxButtons.OK,
              MessageBoxIcon.Exclamation,
              MessageBoxDefaultButton.Button1);
 
             MessageBox.Show("El producto no existe.",
-             "Adventencia",
+             "Advertencia",
              MessageBoxButtons.OK,
              MessageBoxIcon.Exclamation,
              MessageBoxDefaultButton.Button1);
 
             MessageBox.Show("El producto <Nombre producto> está deshabilitado.",
-             "Adventencia",
+             "Advertencia",
              MessageBoxButtons.OK,
              MessageBoxIcon.Exclamation,
              MessageBoxDefaultButton.Button1);
