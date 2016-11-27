@@ -51,7 +51,7 @@ namespace CFFLORES.Presentacion
             if (count == 0)
             {
                 MessageBox.Show("Debe seleccionar por lo menos una Venta",
-                "Adventencia",
+                "Advertencia",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Exclamation,
                 MessageBoxDefaultButton.Button1);
@@ -76,7 +76,7 @@ namespace CFFLORES.Presentacion
         private void button6_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("¿Está Seguro que desea cancelar la Venta?",
-            "Atencion",
+            "Atención",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question,
             MessageBoxDefaultButton.Button2);
@@ -106,7 +106,7 @@ namespace CFFLORES.Presentacion
             if (count == 0)
             {
                 MessageBox.Show("Debe seleccionar por lo menos una Venta",
-                "Adventencia",
+                "Advertencia",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Exclamation,
                 MessageBoxDefaultButton.Button1);
@@ -115,7 +115,7 @@ namespace CFFLORES.Presentacion
             
 
             DialogResult result = MessageBox.Show("¿Está Seguro que desea Anular la Venta?",
-            "Atencion",
+            "Atención",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question,
             MessageBoxDefaultButton.Button2);
@@ -200,7 +200,7 @@ namespace CFFLORES.Presentacion
             if (count == 0)
             {
                 MessageBox.Show("Debe seleccionar por lo menos una Venta",
-                "Adventencia",
+                "Advertencia",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Exclamation,
                 MessageBoxDefaultButton.Button1);
@@ -208,7 +208,7 @@ namespace CFFLORES.Presentacion
             }
 
             DialogResult result = MessageBox.Show("¿Está Seguro que desea Imprimir la Venta?",
-            "Atencion",
+            "Atención",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question,
             MessageBoxDefaultButton.Button2);
